@@ -203,4 +203,25 @@
         	</plugins>
         </pluginManagement>
     </build>
+    
+    <scm>
+		<connection>scm:git:git@github.com:spaceapegames/jersey-scala.git</connection>
+		<tag>scm:git:git@github.com:spaceapegames/jersey-scala.git</tag>
+		<url>scm:git:git@github.com:spaceapegames/jersey-scala.git</url>
+        <developerConnection>scm:git:git@github.com:spaceapegames/jersey-scala.git</developerConnection>
+	</scm>
+	
+	<distributionManagement>
+        <repository>
+            <id>spaceapegames</id>
+            <name>libs-releases</name>
+            <url>https://spaceapegames.artifactoryonline.com/spaceapegames/libs-releases-local/</url>
+        </repository>
+        <snapshotRepository>
+            <id>spaceapegames</id>
+            <name>libs-snapshots</name>
+            <url>https://spaceapegames.artifactoryonline.com/spaceapegames/libs-snapshots-local</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
