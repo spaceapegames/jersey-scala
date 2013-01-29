@@ -1,13 +1,14 @@
 package com.codahale.jersey.inject.specs
 
-import com.codahale.simplespec.Spec
 import org.junit.Test
 import com.codahale.jersey.inject.ScalaCollectionQueryParamInjectable
 import com.sun.jersey.server.impl.model.parameter.multivalued.MultivaluedParameterExtractor
-import com.sun.jersey.api.core.{ExtendedUriInfo, HttpContext}
+import com.sun.jersey.api.core.{ ExtendedUriInfo, HttpContext }
 import javax.ws.rs.core.MultivaluedMap
+import org.scalatest.matchers.ShouldMatchers
+import com.simple.simplespec.Mocks
 
-class ScalaCollectionQueryParamInjectableSpec extends Spec {
+class ScalaCollectionQueryParamInjectableSpec extends ShouldMatchers with Mocks {
   // TODO: Aug 17, 2010 <coda> -- test error handling
 
   val extractor = mock[MultivaluedParameterExtractor]
@@ -19,25 +20,19 @@ class ScalaCollectionQueryParamInjectableSpec extends Spec {
   extractor.extract(params) returns extracted
   context.getUriInfo returns uriInfo
 
-  class `A Scala collection query param injectable with decoding` {
+  @Test def `A Scala collection query param injectable with decoding extracts the query parameters` {
     val injectable = new ScalaCollectionQueryParamInjectable(extractor, true)
     uriInfo.getQueryParameters(true) returns params
+    val e = injectable.getValue(context)
 
-    @Test def `extracts the query parameters` = {
-      val e = injectable.getValue(context)
-
-      e.must(be(extracted))
-    }
+    e should equal(extracted)
   }
 
-  class `A Scala collection query param injectable without decoding` {
+  @Test def `A Scala collection query param injectable without decoding extracts the query parameters` {
     val injectable = new ScalaCollectionQueryParamInjectable(extractor, false)
     uriInfo.getQueryParameters(false) returns params
+    val e = injectable.getValue(context)
 
-    @Test def `extracts the query parameters` = {
-      val e = injectable.getValue(context)
-
-      e.must(be(extracted))
-    }
+    e should equal(extracted)
   }
 }
